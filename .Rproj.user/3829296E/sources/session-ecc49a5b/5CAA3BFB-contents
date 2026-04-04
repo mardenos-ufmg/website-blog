@@ -1,22 +1,22 @@
 library(httr)
 library(jsonlite)
 
-# URL da pasta no GitHub via API
-url_api <- "https://api.github.com/repos/mardenos-ufmg/website-blog/contents/posts"
+root_dir = file.path(tempdir(), "blog")
 
-# Pasta local onde você quer salvar
-dest_dir <- paste0(tempdir(), "posts")
-dir.create(dest_dir, recursive = TRUE, showWarnings = FALSE)
-
-# Pega a lista de arquivos
-res <- GET(url_api)
-stop_for_status(res)
-files <- fromJSON(content(res, as = "text"))
-
-# Baixa cada arquivo
-for (f in files$name) {
-  download_url <- files$download_url[files$name == f]
-  dest_file <- file.path(dest_dir, f)
-  download.file(download_url, dest_file, quiet = FALSE)
-  message("Baixado: ", f)
+for (folder in c("posts", "img")) {
+  dest_dir = file.path(root_dir, folder)
+  url_api  = file.path("https://api.github.com/repos/mardenos-ufmg/website-blog/contents", folder)
+  dir.create(dest_dir, recursive = TRUE, showWarnings = FALSE)
+  
+  res = GET(url_api)
+  stop_for_status(res)
+  files = fromJSON(content(res, as = "text"))
+  
+  for (f in files$name) {
+    download_url = files$download_url[files$name == f]
+    dest_file = file.path(dest_dir, f)
+    download.file(download_url, dest_file, quiet = TRUE)
+  }
+  
+  fs::dir_copy(dest_dir, file.path("blog", folder), overwrite = TRUE)
 }

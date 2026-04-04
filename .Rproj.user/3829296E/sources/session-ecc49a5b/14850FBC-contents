@@ -1,0 +1,8 @@
+precisa_build_site =
+  ( file.info("raw/snis")$mtime > as.POSIXct(readLines("stuff/snis_docs_timestamp.txt")) ) |>
+  {\(.) ifelse(is.na(.), T, .)}()
+
+if (precisa_build_site) {
+  pkgdown::build_site("raw/snis")
+  cat(as.character(Sys.time()), "\n", file = "stuff/snis_docs_timestamp.txt")
+}
