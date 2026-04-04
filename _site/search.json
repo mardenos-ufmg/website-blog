@@ -1,0 +1,100 @@
+[
+  {
+    "objectID": "posts/post01.html",
+    "href": "posts/post01.html",
+    "title": "Análise Exploratória com R e tidyverse",
+    "section": "",
+    "text": "A Análise Exploratória de Dados (EDA) é o ponto de partida de qualquer projeto de ciência de dados. Neste post, vamos explorar como realizar uma EDA completa usando R e o tidyverse."
+  },
+  {
+    "objectID": "posts/post01.html#introdução",
+    "href": "posts/post01.html#introdução",
+    "title": "Análise Exploratória com R e tidyverse",
+    "section": "",
+    "text": "A Análise Exploratória de Dados (EDA) é o ponto de partida de qualquer projeto de ciência de dados. Neste post, vamos explorar como realizar uma EDA completa usando R e o tidyverse."
+  },
+  {
+    "objectID": "posts/post01.html#carregando-os-dados",
+    "href": "posts/post01.html#carregando-os-dados",
+    "title": "Análise Exploratória com R e tidyverse",
+    "section": "Carregando os dados",
+    "text": "Carregando os dados\n\nlibrary(tidyverse)\n\n# Usando o dataset mtcars como exemplo\ndados &lt;- mtcars |&gt;\n  rownames_to_column(\"modelo\") |&gt;\n  as_tibble()\n\nglimpse(dados)\n\nRows: 32\nColumns: 12\n$ modelo &lt;chr&gt; \"Mazda RX4\", \"Mazda RX4 Wag\", \"Datsun 710\", \"Hornet 4 Drive\", \"…\n$ mpg    &lt;dbl&gt; 21.0, 21.0, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, 19.2, 17.…\n$ cyl    &lt;dbl&gt; 6, 6, 4, 6, 8, 6, 8, 4, 4, 6, 6, 8, 8, 8, 8, 8, 8, 4, 4, 4, 4, …\n$ disp   &lt;dbl&gt; 160.0, 160.0, 108.0, 258.0, 360.0, 225.0, 360.0, 146.7, 140.8, …\n$ hp     &lt;dbl&gt; 110, 110, 93, 110, 175, 105, 245, 62, 95, 123, 123, 180, 180, 1…\n$ drat   &lt;dbl&gt; 3.90, 3.90, 3.85, 3.08, 3.15, 2.76, 3.21, 3.69, 3.92, 3.92, 3.9…\n$ wt     &lt;dbl&gt; 2.620, 2.875, 2.320, 3.215, 3.440, 3.460, 3.570, 3.190, 3.150, …\n$ qsec   &lt;dbl&gt; 16.46, 17.02, 18.61, 19.44, 17.02, 20.22, 15.84, 20.00, 22.90, …\n$ vs     &lt;dbl&gt; 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, …\n$ am     &lt;dbl&gt; 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, …\n$ gear   &lt;dbl&gt; 4, 4, 4, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 4, 4, 4, 3, …\n$ carb   &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, 1, 1, …"
+  },
+  {
+    "objectID": "posts/post01.html#estatísticas-descritivas",
+    "href": "posts/post01.html#estatísticas-descritivas",
+    "title": "Análise Exploratória com R e tidyverse",
+    "section": "Estatísticas Descritivas",
+    "text": "Estatísticas Descritivas\n\ndados |&gt;\n  select(mpg, cyl, hp, wt) |&gt;\n  summary()\n\n      mpg             cyl              hp              wt       \n Min.   :10.40   Min.   :4.000   Min.   : 52.0   Min.   :1.513  \n 1st Qu.:15.43   1st Qu.:4.000   1st Qu.: 96.5   1st Qu.:2.581  \n Median :19.20   Median :6.000   Median :123.0   Median :3.325  \n Mean   :20.09   Mean   :6.188   Mean   :146.7   Mean   :3.217  \n 3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:180.0   3rd Qu.:3.610  \n Max.   :33.90   Max.   :8.000   Max.   :335.0   Max.   :5.424"
+  },
+  {
+    "objectID": "posts/post01.html#visualizações",
+    "href": "posts/post01.html#visualizações",
+    "title": "Análise Exploratória com R e tidyverse",
+    "section": "Visualizações",
+    "text": "Visualizações\n\nDistribuição de Consumo (mpg)\n\nggplot(dados, aes(x = mpg)) +\n  geom_histogram(bins = 15, fill = \"#2c7bb6\", color = \"white\", alpha = 0.85) +\n  geom_vline(aes(xintercept = mean(mpg)), color = \"red\", linetype = \"dashed\", linewidth = 1) +\n  labs(\n    title = \"Distribuição do Consumo (mpg)\",\n    subtitle = paste(\"Média:\", round(mean(dados$mpg), 1), \"mpg\"),\n    x = \"Milhas por Galão\",\n    y = \"Frequência\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\nFigure 1: Distribuição do consumo de combustível\n\n\n\n\n\n\n\nRelação entre Peso e Consumo\n\ndados &lt;- dados |&gt;\n  mutate(cyl = factor(cyl))\n\nggplot(dados, aes(x = wt, y = mpg, color = cyl)) +\n  geom_point(size = 3, alpha = 0.8) +\n  geom_smooth(method = \"lm\", se = TRUE, aes(group = 1), color = \"gray50\") +\n  scale_color_brewer(palette = \"Set1\", name = \"Cilindros\") +\n  labs(\n    title = \"Peso vs. Consumo\",\n    x = \"Peso (1000 lbs)\",\n    y = \"Milhas por Galão\"\n  ) +\n  theme_minimal()\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\nFigure 2: Relação entre peso e consumo, colorido por número de cilindros"
+  },
+  {
+    "objectID": "posts/post01.html#correlações",
+    "href": "posts/post01.html#correlações",
+    "title": "Análise Exploratória com R e tidyverse",
+    "section": "Correlações",
+    "text": "Correlações\n\ndados |&gt;\n  select(mpg, hp, wt, qsec) |&gt;\n  cor() |&gt;\n  round(2) |&gt;\n  knitr::kable(caption = \"Matriz de correlação\")\n\n\nMatriz de correlação\n\n\n\nmpg\nhp\nwt\nqsec\n\n\n\n\nmpg\n1.00\n-0.78\n-0.87\n0.42\n\n\nhp\n-0.78\n1.00\n0.66\n-0.71\n\n\nwt\n-0.87\n0.66\n1.00\n-0.17\n\n\nqsec\n0.42\n-0.71\n-0.17\n1.00"
+  },
+  {
+    "objectID": "posts/post01.html#conclusão",
+    "href": "posts/post01.html#conclusão",
+    "title": "Análise Exploratória com R e tidyverse",
+    "section": "Conclusão",
+    "text": "Conclusão\nObservamos que:\n\nPeso e cilindros têm forte correlação negativa com o consumo\nCarros com 4 cilindros apresentam, em geral, melhor eficiência\nA relação peso-consumo é quase linear\n\n\n\n\n\n\n\nTip\n\n\n\nExperimente substituir mtcars pelos seus próprios dados e adaptar as visualizações!"
+  },
+  {
+    "objectID": "index2.html",
+    "href": "index2.html",
+    "title": "website-blog",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Order By\n      Default\n      \n        Title\n      \n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\n\n\n\nAnálise Exploratória com R e tidyverse\n\n\nUm guia prático para EDA usando as melhores ferramentas do ecossistema R\n\n\n\nR\n\nEDA\n\ntidyverse\n\ntutorial\n\n\n\n\n\n\nMar 30, 2025\n\n\nAna Silva\n\n2 min\n\n\n\n\n\n\n\n\n\n\n\nVisualizações Interativas com Observable JS no Quarto\n\n\nComo usar OJS para criar gráficos reativos diretamente em documentos Quarto\n\n\n\nObservable JS\n\nvisualização\n\nQuarto\n\ninterativo\n\n\n\n\n\n\nMar 15, 2025\n\n\nJuliana Costa\n\n2 min\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/post02.html",
+    "href": "posts/post02.html",
+    "title": "Visualizações Interativas com Observable JS no Quarto",
+    "section": "",
+    "text": "O Observable JS (OJS) é uma linguagem reativa baseada em JavaScript que se integra nativamente ao Quarto, permitindo criar visualizações interativas sem precisar de um servidor Shiny."
+  },
+  {
+    "objectID": "posts/post02.html#por-que-observable-js",
+    "href": "posts/post02.html#por-que-observable-js",
+    "title": "Visualizações Interativas com Observable JS no Quarto",
+    "section": "",
+    "text": "O Observable JS (OJS) é uma linguagem reativa baseada em JavaScript que se integra nativamente ao Quarto, permitindo criar visualizações interativas sem precisar de um servidor Shiny."
+  },
+  {
+    "objectID": "posts/post02.html#exemplo-gráfico-interativo-com-d3",
+    "href": "posts/post02.html#exemplo-gráfico-interativo-com-d3",
+    "title": "Visualizações Interativas com Observable JS no Quarto",
+    "section": "Exemplo: Gráfico Interativo com D3",
+    "text": "Exemplo: Gráfico Interativo com D3\nO código abaixo cria um gráfico de dispersão interativo onde você pode filtrar os dados:\n\nviewof n_pontos = Inputs.range([10, 200], {\n  label: \"Número de pontos\",\n  step: 10,\n  value: 100\n})\n\n\n\n\n\n\n\ndados = Array.from({length: n_pontos}, (_, i) =&gt; ({\n  x: Math.random() * 10,\n  y: Math.random() * 10 + Math.random() * 2,\n  grupo: Math.random() &gt; 0.5 ? \"A\" : \"B\"\n}))\n\nPlot.plot({\n  marks: [\n    Plot.dot(dados, {\n      x: \"x\",\n      y: \"y\",\n      fill: \"grupo\",\n      r: 5,\n      opacity: 0.7\n    }),\n    Plot.frame()\n  ],\n  color: {legend: true},\n  grid: true,\n  style: {fontSize: 13}\n})"
+  },
+  {
+    "objectID": "posts/post02.html#passando-dados-do-r-para-ojs",
+    "href": "posts/post02.html#passando-dados-do-r-para-ojs",
+    "title": "Visualizações Interativas com Observable JS no Quarto",
+    "section": "Passando dados do R para OJS",
+    "text": "Passando dados do R para OJS\nUma das grandes vantagens é poder processar dados no R e enviá-los para OJS:\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.2.0     ✔ readr     2.1.5\n✔ forcats   1.0.1     ✔ stringr   1.5.2\n✔ ggplot2   4.0.0     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nresumo_carros &lt;- mtcars |&gt;\n  group_by(cyl) |&gt;\n  summarise(\n    mpg_medio = mean(mpg),\n    n = n(),\n    .groups = \"drop\"\n  )\n\nojs_define(carros_ojs = resumo_carros)\n\n\nPlot.plot({\n  marks: [\n    Plot.barY(transpose(carros_ojs), {\n      x: \"cyl\",\n      y: \"mpg_medio\",\n      fill: \"steelblue\",\n      tip: true\n    }),\n    Plot.ruleY([0])\n  ],\n  x: {label: \"Cilindros\"},\n  y: {label: \"MPG Médio\"},\n  style: {fontSize: 13}\n})"
+  },
+  {
+    "objectID": "posts/post02.html#conclusão",
+    "href": "posts/post02.html#conclusão",
+    "title": "Visualizações Interativas com Observable JS no Quarto",
+    "section": "Conclusão",
+    "text": "Conclusão\nO Observable JS é uma ferramenta poderosa para criar visualizações interativas em documentos Quarto, sem a necessidade de infraestrutura adicional. No próximo post, veremos como criar dashboards completos com Quarto e OJS."
+  }
+]

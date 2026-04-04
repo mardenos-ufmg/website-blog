@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://google.com/posts/post01.html</loc>
+    <lastmod>2026-04-01T16:31:46.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://google.com/index2.html</loc>
+    <lastmod>2026-04-04T22:34:13.889Z</lastmod>
+  </url>
+  <url>
+    <loc>https://google.com/index.html</loc>
+    <lastmod>2026-04-04T21:59:34.793Z</lastmod>
+  </url>
+  <url>
+    <loc>https://google.com/posts/post02.html</loc>
+    <lastmod>2026-04-01T16:31:58.000Z</lastmod>
+  </url>
+</urlset>
