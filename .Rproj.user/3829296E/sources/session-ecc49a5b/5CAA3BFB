@@ -1,26 +1,27 @@
 {
-    "id": "C0B21D41",
-    "path": "~/Documents/website/_quarto.yml",
+    "id": "5CAA3BFB",
+    "path": null,
     "project_path": null,
-    "type": "yaml",
+    "type": "r_source",
     "hash": "0",
     "contents": "",
-    "dirty": false,
-    "created": 1775342226079.0,
+    "dirty": true,
+    "created": 1775342563439.0,
     "source_on_save": false,
-    "relative_order": 2,
+    "relative_order": 1,
     "properties": {
+        "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "14,21",
-        "scrollLine": "0"
+        "cursorPosition": "13,5",
+        "scrollLine": "4"
     },
     "folds": "",
     "lastKnownWriteTime": 1775341374,
-    "encoding": "UTF-8",
+    "encoding": "",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1775341374,
+    "last_content_update": 1775342746942,
     "read_only": false,
     "read_only_alternatives": []
 }
