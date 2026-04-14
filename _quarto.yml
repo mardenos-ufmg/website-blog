@@ -1,6 +1,5 @@
 project:
   type: website
-  pre-render: Rscript prerender.R
 
 website:
   site-url: "https://google.com"
