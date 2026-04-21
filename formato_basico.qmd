@@ -6,6 +6,7 @@ date: "2025-03-30"
 categories: [teste]
 draft: false
 toc: true
+#image: "thumbnail.png"
 ---
 
 ## Introdução
