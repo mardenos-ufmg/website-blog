@@ -1,0 +1,13 @@
+---
+title: "Teste"
+subtitle: "Teste"
+author: "Autor"
+date: "2025-03-30"
+categories: [teste]
+draft: false
+toc: true
+---
+
+## Introdução
+
+A Análise Exploratória de Dados (EDA) é o ponto de partida de qualquer projeto de ciência de dados. Neste post, vamos explorar como realizar uma EDA completa usando R e o `tidyverse`.
