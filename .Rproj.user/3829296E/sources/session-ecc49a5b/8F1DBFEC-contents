@@ -1,1 +1,0 @@
-fs::dir_copy("raw/snis/docs", "_site/4devs/docs/snis", overwrite = TRUE)
